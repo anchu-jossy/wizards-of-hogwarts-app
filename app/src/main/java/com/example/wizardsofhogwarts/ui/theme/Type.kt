@@ -1,4 +1,4 @@
-package com.example.wizardsofhogwarts.ui.theme
+package com.stevdza.san.themeswitcher.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
