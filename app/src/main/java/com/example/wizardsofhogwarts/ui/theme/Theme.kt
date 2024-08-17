@@ -1,4 +1,4 @@
-package com.stevdza.san.themeswitcher.ui.theme
+package com.example.wizardsofhogwarts.ui.theme
 
 import android.app.Activity
 import android.os.Build

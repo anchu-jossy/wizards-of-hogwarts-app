@@ -1,13 +1,29 @@
 [versions]
-agp = "8.4.0"
-kotlin = "1.9.0"
+agp = "8.2.2"
+kotlin = "1.9.24"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
-composeBom = "2023.08.00"
+composeBom = "2024.06.00"
+hilt = "2.48"
+hiltNavCompose = "1.2.0"
+nav_version = "2.7.7"
+constraintCompose = "1.0.1"
+retrofit = "2.11.0"
+logging_interceptor = "4.12.0"
+gson = "2.10.1"
+paging_version = "3.3.2"
+multidex = "2.0.1"
+room_version = "2.6.1"
+hiltAndroidGradlePlugin = "2.48"
+coroutines = "1.8.1"
+coreTesting = "2.2.0"
+core = "1.44.0"
+
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,8 +40,33 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavCompose"}
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref="nav_version"}
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+retrofit-converter = { group = "com.squareup.retrofit2",name = "converter-gson", version.ref = "retrofit"}
+logging-interceptor = { group = "com.squareup.okhttp3",name = "logging-interceptor", version.ref = "logging_interceptor"}
+constraintlayout-compose = { group = "androidx.constraintlayout",name = "constraintlayout-compose", version.ref = "constraintCompose"}
+gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+paging = { group = "androidx.paging", name = "paging-runtime",  version.ref="paging_version"}
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging_version"}
+multidex ={ group = "androidx.multidex", name = "multidex", version.ref = "multidex"}
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version"}
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version"}
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room_version"}
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+core = { group = "com.google.ar", name = "core", version.ref = "core" }
+
 
 [plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref= "hilt"}
+room = {id = "androidx.room", version.ref = "room_version"}
+org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 
