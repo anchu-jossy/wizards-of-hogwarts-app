@@ -16,6 +16,7 @@ fun AppBarTitle(title: String) {
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.primary,
         ),
-        title = { Text(title) }
+        title = { Text(title)
+        }
     )
 }
