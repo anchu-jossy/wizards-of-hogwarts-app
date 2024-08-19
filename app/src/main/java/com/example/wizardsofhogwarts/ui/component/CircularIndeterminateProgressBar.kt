@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CircularIndeterminateProgressBar(isDisplayed: Boolean, verticalBias: Float) {
+fun CircularIndeterminateProgressBar(isDisplayed: Boolean) {
     if (isDisplayed) {
         Column(
             modifier = Modifier.fillMaxSize(),

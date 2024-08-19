@@ -10,7 +10,13 @@ data class Character(
     val alive: Boolean,
     val image: String,
 
-)
+){
+
+    fun doesMatchSearchQuery(query: String): Boolean {
+        val doesMatch= listOf(name, actor)
+        return doesMatch.any {it.contains(query, ignoreCase = true)  }
+    }
+}
 
 
 

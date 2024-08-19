@@ -12,10 +12,4 @@ import com.example.wizardsofhogwarts.data.locals.dao.CharacterDao
 abstract class CharacterDatabase : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
 
-    companion object {
-        @Volatile
-         var INSTANCE: CharacterDatabase? = null
-
-
-    }
 }

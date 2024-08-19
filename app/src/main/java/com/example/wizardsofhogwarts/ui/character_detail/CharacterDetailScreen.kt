@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.wizardsofhogwarts.data.mappers.CharacterMapper.toFormattedDate
 import com.example.wizardsofhogwarts.ui.characterlist.CharacterListViewModel
 import com.example.wizardsofhogwarts.ui.utils.getHouseColor
 
@@ -58,6 +57,7 @@ fun CharacterDetailScreen(viewModel: CharacterListViewModel) {
                     )
                     .background(Color.Gray),
                 contentScale = ContentScale.Crop
+
             )
         }
         Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.Start) {

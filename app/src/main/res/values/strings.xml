@@ -5,5 +5,11 @@
     <string name="no_data_placeholder">No Data Available</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
+    <string name="no_internet_connection">Oops! No Internet Connection</string>
+    <string name="griffindor">Griffindor</string>
+    <string name="slytherin">Slytherin</string>
+    <string name="ravenclaw">Ravenclaw</string>
+    <string name="hufflepuff">Hufflepuff</string>
+
 
 </resources>
