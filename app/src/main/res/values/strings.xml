@@ -3,5 +3,7 @@
     <string name="characters">Characters</string>
     <string name="character_details">Character Detail</string>
     <string name="no_data_placeholder">No Data Available</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
 
 </resources>

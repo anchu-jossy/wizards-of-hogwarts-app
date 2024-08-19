@@ -5,14 +5,19 @@ import com.example.wizardsofhogwarts.R
 
 sealed class Screen(
     val route: String,
-    @StringRes val title: Int = R.string.app_name,
-    val objectName: String = "",
-    val objectPath: String = ""
-){
 
+    ) {
 
     object CharactersListScreen : Screen("characters")
-    object CharacterDetailScreen : Screen("charcterIdDetails", objectName = "charcterId", objectPath = "/{charcterId}" )
+    object CharacterDetailScreen : Screen("id")
 
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { it ->
+                append("/$it")
+            }
+        }
 
+    }
 }

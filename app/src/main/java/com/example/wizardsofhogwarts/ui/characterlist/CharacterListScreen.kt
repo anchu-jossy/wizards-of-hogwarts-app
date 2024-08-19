@@ -1,29 +1,23 @@
 package com.example.wizardsofhogwarts.ui.characterlist
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.LazyPagingItems
 import com.example.wizardsofhogwarts.domain.model.Character
 import com.example.wizardsofhogwarts.ui.navigation.Screen
 import com.example.wizardsofhogwarts.ui.utils.getHouseColor
@@ -31,33 +25,44 @@ import com.example.wizardsofhogwarts.ui.utils.getHouseColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterListScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: CharacterListViewModel
 ) {
-    val viewModel: CharacterListViewModel = hiltViewModel()
-    // Collect the paging data as lazy paging items
-    val characterPagingItems: LazyPagingItems<Character> =
-        viewModel.characterList.collectAsLazyPagingItems()
+    // Observe the state from the ViewModel
+    val state by viewModel.state
 
+    if (state.isLoading) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center,) {
+            CircularProgressIndicator()
+        }
+    } else if (state.error.isNotBlank()) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+            )
+        }
+    } else {
+        LazyColumn(
+            contentPadding = PaddingValues(16.dp),
+            modifier = Modifier.fillMaxSize()
+        ) {
+            items(state.charaterItems) { character ->
+                CharacterListItem(character = character, onItemClick = { clickedItem ->
 
-    LazyColumn(
-        contentPadding = PaddingValues(16.dp),
-        modifier = Modifier.fillMaxSize()
-    ) {
-
-        items(characterPagingItems.itemCount) { index ->
-            characterPagingItems[index].let {
-                it?.let { it1 ->
-                    CharacterListItem(character = it1, onItemClick = { character ->
-                        // Navigate to the character detail screen with the character ID as an argument
-                        character.id.let { characterId -> navController.navigate(Screen.CharacterDetailScreen.route + "/$characterId") }
-
+                        viewModel.addCharacter(clickedItem)
+                        navController.navigate(Screen.CharacterDetailScreen.route)
                     })
                 }
             }
-
         }
     }
-}
+
+
 
 @Composable
 fun CharacterListItem(character: Character, onItemClick: (Character) -> Unit) {
@@ -66,7 +71,7 @@ fun CharacterListItem(character: Character, onItemClick: (Character) -> Unit) {
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp),
-                onClick = {
+        onClick = {
             onItemClick(character)
         },
     ) {

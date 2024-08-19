@@ -9,10 +9,7 @@ data class Character(
     val dateOfBirth: String,
     val alive: Boolean,
     val image: String,
-    val gender: String,
-    val wand: Wand,
-    val hogwartsStudent: Boolean,
-    val hogwartsStaff: Boolean
+
 )
 
 

@@ -7,8 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("api/characters/")
-    suspend fun getCharacterList(   @Query("page") page: Int,
-                                    @Query("pageSize") pageSize: Int): List<CharacterDTO>
+    suspend fun getCharacterList(): List<CharacterDTO>
 
     companion object {
         const val BASE_URL = "https://hp-api.onrender.com/"

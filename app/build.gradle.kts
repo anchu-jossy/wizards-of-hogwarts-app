@@ -96,6 +96,8 @@ dependencies {
     androidTestImplementation(libs.androidx.arch.core.testing)
   //  androidTestImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.kotlinx.coroutines.test)
+    implementation(libs.coil.compose)
+    implementation (libs.androidx.datastore.preferences)
 
 
 }

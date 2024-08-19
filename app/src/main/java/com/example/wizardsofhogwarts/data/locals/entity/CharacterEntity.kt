@@ -1,19 +1,17 @@
-package com.example.wizardsofhogwarts.data.locals.entity
+package com.example.wizardsofhogwarts.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-class CharacterInfoEntity(
-    val word: String,
+@Entity(tableName = "characters")
+data class CharacterEntity(
+    @PrimaryKey val id: String,
+    val name: String,
+    val actor: String,
+    val species: String,
+    val image: String,
+    val house: String,
+    val alive: Boolean,
+    val dateOfBirth: String
 
-    @PrimaryKey val id: Int? = null
-) {
-//    fun toWordInfo(): WordInfo {
-//       return WordInfo(
-//            meanings = meanings,
-//            word = word,
-//            phonetic = phonetic
-//        )
-//    }
-}
+)
