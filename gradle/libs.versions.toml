@@ -53,7 +53,6 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-converter = { group = "com.squareup.retrofit2",name = "converter-gson", version.ref = "retrofit"}
 logging-interceptor = { group = "com.squareup.okhttp3",name = "logging-interceptor", version.ref = "logging_interceptor"}
-constraintlayout-compose = { group = "androidx.constraintlayout",name = "constraintlayout-compose", version.ref = "constraintCompose"}
 gson = {group = "com.google.code.gson", name = "gson", version.ref = "gson"}
 paging = { group = "androidx.paging", name = "paging-runtime",  version.ref="paging_version"}
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging_version"}

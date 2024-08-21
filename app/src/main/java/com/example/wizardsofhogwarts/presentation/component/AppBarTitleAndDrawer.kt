@@ -1,4 +1,4 @@
-package com.example.wizardsofhogwarts.ui.component
+package com.example.wizardsofhogwarts.presentation.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
@@ -15,35 +15,39 @@ import androidx.compose.ui.res.stringResource
 import com.example.wizardsofhogwarts.R
 import kotlinx.coroutines.launch
 
-
+/**
+ * A top app bar with a title and a navigation drawer icon.
+ *
+ * @param title The title to display in the app bar.
+ * @param onDrawerIconClick A callback invoked when the drawer icon is clicked.
+ */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun AppBarTitleAndDrawer(title: String, onDrawerIconClick:()->Unit) {
-    val scope =rememberCoroutineScope()
+fun AppBarTitleAndDrawer(
+    title: String,
+    onDrawerIconClick: () -> Unit
+) {
+    // Remember coroutine scope for launching coroutines
+    val scope = rememberCoroutineScope()
+
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary,
         ),
-        title = { Text(title)
-        }, navigationIcon = {
-
-        }
-    )
-    TopAppBar(
         title = {
-            Text(text = stringResource(id = R.string.app_name))
+            Text(text = stringResource(id = R.string.app_name)) // Display app name as title
         },
         navigationIcon = {
             IconButton(onClick = {
                 scope.launch {
-                    onDrawerIconClick()
+                    onDrawerIconClick() // Invoke callback on drawer icon click
                 }
             }) {
                 Icon(
                     imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu"
+                    contentDescription = "Menu" // Description for accessibility
                 )
             }
-        })
+        }
+    )
 }

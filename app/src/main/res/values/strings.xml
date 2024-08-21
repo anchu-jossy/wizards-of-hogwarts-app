@@ -1,15 +1,32 @@
 <resources>
-    <string name="app_name">WizardsOfHogwarts</string>
+    <!-- Application Name -->
+    <string name="app_name">Wizards Of Hogwarts</string>
+
+    <!-- Screen Titles -->
     <string name="characters">Characters</string>
     <string name="character_details">Character Detail</string>
+
+    <!-- Placeholders and Labels -->
     <string name="no_data_placeholder">No Data Available</string>
     <string name="light_theme">Light Theme</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="no_internet_connection">Oops! No Internet Connection</string>
-    <string name="griffindor">Griffindor</string>
+
+    <!-- House Names -->
+    <string name="griffindor">Gryffindor</string>
     <string name="slytherin">Slytherin</string>
     <string name="ravenclaw">Ravenclaw</string>
     <string name="hufflepuff">Hufflepuff</string>
 
+    <!-- Search Placeholder -->
+    <string name="search">Search for actorname or charactername…</string>
 
+    <!-- Accessibility -->
+    <string name="character_image_description">Image of a character from the Hogwarts universe</string>
+
+    <!-- Character Details -->
+    <string name="actor_label">Actor: %1$s</string>
+    <string name="species_label">Species: %1$s</string>
+    <string name="date_of_birth_label">Date Of Birth: %1$s</string>
+    <string name="is_alive_label">isAlive: %1$s</string>
 </resources>

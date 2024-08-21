@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
     alias(libs.plugins.hiltAndroid)
-
 }
 
 android {
@@ -20,13 +19,18 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://hp-api.onrender.com/\"")
 
+        }
+        release {
+            buildConfigField("String", "BASE_URL", "\"https://hp-api.onrender.com/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -41,10 +45,11 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true // Ensure buildConfig is enabled to generate the BuildConfig.java
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14" // Ensure this matches your Compose version
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
 
     packaging {
@@ -55,52 +60,66 @@ android {
 }
 
 dependencies {
+    // Core AndroidX libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // Jetpack Compose libraries
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // Core and utility libraries
     implementation(libs.core)
+    implementation(libs.gson)
+    implementation(libs.multidex)
+
+    // Testing libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.arch.core.testing)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+
+    // Debug libraries
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Dependency injection with Hilt
     implementation(libs.hilt.android)
-    kaptTest(libs.hilt.android.compiler)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
-    kapt (libs.hilt.android.compiler)
 
+    // Navigation library for Compose
     implementation(libs.navigation.compose)
 
+    // Networking with Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
     implementation(libs.logging.interceptor)
-    implementation(libs.constraintlayout.compose)
-    implementation(libs.gson)
+
+    // Paging with Room support
     implementation(libs.paging)
     implementation(libs.paging.compose)
-    implementation(libs.multidex)
 
+    // Image loading with Coil
+    implementation(libs.coil.compose)
+
+    // Room database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
     implementation(libs.room.paging)
 
-    androidTestImplementation(libs.androidx.arch.core.testing)
-  //  androidTestImplementation(libs.hilt.android.testing)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-    implementation(libs.coil.compose)
-    implementation (libs.androidx.datastore.preferences)
-
-
+    // Datastore for preferences
+    implementation(libs.androidx.datastore.preferences)
 }
+
 // Allow references to generated code
 kapt {
     correctErrorTypes = true

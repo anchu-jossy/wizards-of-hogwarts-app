@@ -1,9 +1,9 @@
-package com.example.wizardsofhogwarts.ui.theme
+package com.example.wizardsofhogwarts.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
 val md_theme_light_primary = Color(0xFF00696D)
-val md_theme_light_onPrimary = Color(0xFFFFFFFF)
+val md_theme_light_onPrimary = Color(0xFFCA2828)
 val md_theme_light_primaryContainer = Color(0xFF6FF6FD)
 val md_theme_light_onPrimaryContainer = Color(0xFF002021)
 val md_theme_light_secondary = Color(0xFF4A6364)
@@ -32,7 +32,6 @@ val md_theme_light_shadow = Color(0xFF000000)
 val md_theme_light_surfaceTint = Color(0xFF00696D)
 val md_theme_light_outlineVariant = Color(0xFFBEC8C9)
 val md_theme_light_scrim = Color(0xFF000000)
-
 val md_theme_dark_primary = Color(0xFF4CD9E0)
 val md_theme_dark_onPrimary = Color(0xFF003739)
 val md_theme_dark_primaryContainer = Color(0xFF004F52)
@@ -59,9 +58,16 @@ val md_theme_dark_outline = Color(0xFF899393)
 val md_theme_dark_inverseOnSurface = Color(0xFF191C1C)
 val md_theme_dark_inverseSurface = Color(0xFFE0E3E3)
 val md_theme_dark_inversePrimary = Color(0xFF00696D)
-val md_theme_dark_shadow = Color(0xFF000000)
 val md_theme_dark_surfaceTint = Color(0xFF4CD9E0)
 val md_theme_dark_outlineVariant = Color(0xFF3F4949)
 val md_theme_dark_scrim = Color(0xFF000000)
 
-val seed = Color(0xFFE8388)
+//
+val Purple80 = Color(0xFFD0BCFF)
+val PurpleGrey80 = Color(0xFFCCC2DC)
+val Pink80 = Color(0xFFEFB8C8)
+val goldenColor=Color(0xFFFFD700)
+
+val Purple40 = Color(0xFFFFD700)
+val PurpleGrey40 = Color(0xFF625b71)
+val Pink40 = Color(0xFF7D5260)
