@@ -22,3 +22,4 @@ fun getHouseColor(house: String): Color {
         else -> Color.Transparent // Default color if house is unknown
     }
 }
+
