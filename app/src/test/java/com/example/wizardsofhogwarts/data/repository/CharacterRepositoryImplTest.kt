@@ -12,9 +12,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -31,38 +29,11 @@ class CharacterRepositoryImplTest {
     private lateinit var characterRepositoryImpl: CharacterRepositoryImpl
 
     private val dummyCharacterEntities = listOf(
-        CharacterEntity(
-            "1",
-            "Harry Potter",
-            "Daniel Radcliffe",
-            "Human",
-            "image_url",
-            "Gryffindor",
-            true,
-            "1980-07-31",
-        ),
-        CharacterEntity(
-            "2",
-            "Hermione Granger",
-            "Emma Watson",
-            "Human",
-            "image_url",
-            "Gryffindor",
-            true,
-            "1979-09-19"
-        )
+        CharacterEntity("1", "Harry Potter", "Daniel Radcliffe", "Human", "image_url", "Gryffindor", true, "1980-07-31",),
+        CharacterEntity("2", "Hermione Granger", "Emma Watson", "Human", "image_url", "Gryffindor", true, "1979-09-19")
     )
     private val dummyCharacters = dummyCharacterEntities.map {
-        Character(
-            it.id,
-            it.name,
-            it.actor,
-            it.species,
-            it.house,
-            it.dateOfBirth,
-            it.alive,
-            it.image
-        )
+        Character(it.id, it.name, it.actor, it.species, it.house, it.dateOfBirth, it.alive, it.image)
     }
 
     @Before
@@ -90,64 +61,50 @@ class CharacterRepositoryImplTest {
         // Compare the data inside Resource.Success
         val successResult = result[1] as? Resource.Success
         assertNotNull(successResult)
-        assertEquals(
-            dummyCharacters,
-            successResult?.data,
-            "Expected the data in Resource.Success to match the dummyCharacters"
-        )
+        assertEquals(dummyCharacters, successResult?.data, "Expected the data in Resource.Success to match the dummyCharacters")
     }
 
     @Test
-    fun `getCharacterList fetches from remote API and saves to local database when local data is empty`() =
-        runTest {
-            // 1. Define the data returned by the API
-            val charactersFromApi = listOf(
-                CharacterDTO(
-                    actor = "Daniel Radcliffe",
-                    alive = true,
-                    alternate_actors = emptyList(),
-                    alternate_names = listOf(
-                        "The Boy Who Lived",
-                        "The Chosen One",
-                        "Undesirable No. 1",
-                        "Potty"
-                    ),
-                    ancestry = "half-blood",
-                    dateOfBirth = "31-07-1980",
-                    eyeColour = "green",
-                    gender = "male",
-                    hairColour = "black",
-                    hogwartsStaff = false,
-                    house = "Gryffindor",
-                    id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
-                    image = "https://ik.imagekit.io/hpapi/harry.jpg",
-                    name = "Harry Potter",
-                    species = "human"
-                )
-            )
+    fun `getCharacterList fetches from remote API and saves to local database when local data is empty`() = runTest {
+        val charactersFromApi = listOf( CharacterDTO(
+            actor = "Daniel Radcliffe",
+            alive = true,
+            alternate_actors = emptyList(), // No alternate actors provided
+            alternate_names = listOf(
+                "The Boy Who Lived",
+                "The Chosen One",
+                "Undesirable No. 1",
+                "Potty"
+            ),
+            ancestry = "half-blood",
+            dateOfBirth = "31-07-1980",
+            eyeColour = "green",
+            gender = "male",
+            hairColour = "black",
+            hogwartsStaff = false,
+            house = "Gryffindor",
+            id = "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
+            image = "https://ik.imagekit.io/hpapi/harry.jpg",
+            name = "Harry Potter",
+            species = "human"
+        )
+        )
 
-            // 2. Map DTOs to domain models and entities
-            val charactersDomain = charactersFromApi.map { it.toDomainModel() }
-            val characterEntities = charactersFromApi.map { it.toCharacterEntity() }
+        val charactersDomain = charactersFromApi.map { it.toDomainModel() }
+        val characterEntities = charactersFromApi.map { it.toCharacterEntity() }
 
-            // 3. Mock the API response
-            coEvery { apiService.getCharacterList() } returns charactersFromApi
+        coEvery { apiService.getCharacterList() } returns charactersFromApi
 
-            // 4. Mock the DAO response for an empty database
-            coEvery { characterDao.getAllCharacters() } returns flow {
-                emptyList<Character>()
+        // When
+        val result = characterRepositoryImpl.getCharacterList().first()
 
-                // 5. Call the repository method
-                val result = characterRepositoryImpl.getCharacterList().first()
+        // Then
+        assert(result is Resource.Success)
+        assert((result as Resource.Success).data == charactersDomain)
+        coVerify { characterDao.insertAllCharacters(characterEntities) }
+    }
 
-                // 6. Verify the method behavior
-                assert(result is Resource.Success)
-                assert((result as Resource.Success).data == charactersDomain)
 
-                // 7. Verify that data is saved to the local database
-                coVerify { characterDao.insertAllCharacters(characterEntities) }
-            }
-        }
 
     private fun assertNotNull(value: Any?) {
         assertTrue(value != null, "Value should not be null")
