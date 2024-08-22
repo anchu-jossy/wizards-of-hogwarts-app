@@ -15,8 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
 
-
-
+// Define the color schemes for dark and light themes
 private val DarkColors = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
@@ -27,18 +26,15 @@ private val LightColors = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40
-
 )
-
-
 
 @Composable
 fun ThemeSwitcherTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    darkTheme: Boolean = isSystemInDarkTheme(), // Default to system theme
+    dynamicColor: Boolean = true, // Enable dynamic color if supported
+    content: @Composable () -> Unit // Content to apply the theme to
 ) {
+    // Determine the color scheme based on the theme and Android version
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
@@ -47,7 +43,9 @@ fun ThemeSwitcherTheme(
         darkTheme -> DarkColors
         else -> LightColors
     }
+
     val view = LocalView.current
+    // Apply the status bar color and appearance based on the theme
     if (!view.isInEditMode) {
         SideEffect {
             (view.context as Activity).window.statusBarColor = colorScheme.primary.toArgb()
@@ -55,6 +53,7 @@ fun ThemeSwitcherTheme(
         }
     }
 
+    // Apply the MaterialTheme with the chosen color scheme
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

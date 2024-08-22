@@ -1,6 +1,5 @@
 package com.example.wizardsofhogwarts.presentation.navigation
 
-
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,7 +11,6 @@ import com.example.wizardsofhogwarts.presentation.character_detail.CharacterDeta
 import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListScreen
 import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListState
 import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListViewModel
-
 
 @Composable
 fun Navigation(
@@ -26,10 +24,10 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.CharactersListScreen.route // Ensure this route is defined in Screen
+        startDestination = Screen.CharactersListScreen.route // Starting route of the navigation graph
     ) {
+        // Character List Screen
         composable(Screen.CharactersListScreen.route) {
-
             CharacterListScreen(
                 onItemClick = onItemClick,
                 state = state,
@@ -38,10 +36,10 @@ fun Navigation(
                 onSearchTextChange = onSearchTextChange
             )
         }
+        // Character Detail Screen
         composable(Screen.CharacterDetailScreen.route) {
             val character by viewModel.selectedCharacter.collectAsState()
             CharacterDetailScreen(character = character)
         }
     }
 }
-

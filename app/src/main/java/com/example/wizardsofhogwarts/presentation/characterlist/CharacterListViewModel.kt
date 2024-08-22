@@ -35,6 +35,16 @@ class CharacterListViewModel @Inject constructor(
     private val _selectedCharacter = MutableStateFlow(Character())
     val selectedCharacter: StateFlow<Character> = _selectedCharacter.asStateFlow()
 
+
+
+    // Initialize the ViewModel by loading the theme and character list
+    init {
+        loadTheme()
+        loadCharacterList()
+    }
+
+
+
     // Derived StateFlow for filtering the character list based on the search text
     val characterList: StateFlow<List<Character>> = _searchText
         .combine(_state) { searchText, state ->
@@ -46,11 +56,7 @@ class CharacterListViewModel @Inject constructor(
             }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    // Initialize the ViewModel by loading the theme and character list
-    init {
-        loadTheme()
-        loadCharacterList()
-    }
+
 
     // Sets the selected character
     fun addCharacter(character: Character) {

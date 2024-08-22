@@ -29,4 +29,6 @@
     <string name="species_label">Species: %1$s</string>
     <string name="date_of_birth_label">Date Of Birth: %1$s</string>
     <string name="is_alive_label">isAlive: %1$s</string>
+    <string name="clear_search">Clear search</string>
+    <string name="search_bar_tag">search_bar</string>
 </resources>

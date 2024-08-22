@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,7 @@ fun CharacterListScreen(
                 text = state.error,
                 color = MaterialTheme.colorScheme.error
             )
+
             characterList.isEmpty() -> NoDataPlaceHolder()
             else -> LazyColumn(
                 contentPadding = PaddingValues(16.dp),
@@ -75,11 +77,15 @@ fun SearchBar(
     searchText: String,
     onSearchTextChange: (String) -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     TextField(
         singleLine = true,
         value = searchText,
         onValueChange = onSearchTextChange,
-        modifier = Modifier.fillMaxWidth().testTag("search_bar"),
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag(stringResource(R.string.search_bar_tag)),
         placeholder = {
             Text(
                 text = stringResource(id = R.string.search),
@@ -88,11 +94,14 @@ fun SearchBar(
         },
         trailingIcon = {
             if (searchText.isNotEmpty()) {
-                IconButton(onClick = { onSearchTextChange("") }) {
+                IconButton(onClick = {
+                    onSearchTextChange("")
+                    keyboardController?.hide()
+                }) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         tint = MaterialTheme.colorScheme.onSurface,
-                        contentDescription = "Clear search"
+                        contentDescription = stringResource(R.string.clear_search)
                     )
                 }
             }

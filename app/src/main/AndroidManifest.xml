@@ -12,7 +12,6 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/hogwartz"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.ThemeSwitcher"
         tools:targetApi="34" >
 
