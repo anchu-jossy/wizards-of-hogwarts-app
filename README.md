@@ -33,7 +33,7 @@ The Wizards of Hogwarts app displays characters from the Harry Potter universe u
 
 ## Technologies
 
-- **MVVM Clean Architecture**: Ensures separation of concerns and maintainability.
+- **MVVM+MVI Clean Architecture**: Ensures separation of concerns and maintainability.
 - **Jetpack Compose**: Provides a modern, declarative UI toolkit.
 - **Room Database**: Manages offline data storage.
 - **Data Preferences**: Saves user-selected themes.
@@ -42,6 +42,9 @@ The Wizards of Hogwarts app displays characters from the Harry Potter universe u
 - **Dagger Hilt**: Facilitates dependency injection and management.
 - **Version Catalog**: Centralizes dependency management.
 - **API Key Management**: Secures API keys in the `BaseConfig` file for both `develop` and `release` variants.
+- **Coroutines**: Handles asynchronous operations and concurrency.
+- **Flow Library**: Supports proper data operations and state management.
+
 
 ## Setup
 
