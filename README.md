@@ -1,51 +1,69 @@
-****Wizards of Hogwarts App**
+# Wizards of Hogwarts App
 
-Overview
-The Wizards of Hogwarts app displays Harry Potter characters from HP API with features including inline search, offline support, and a detailed character view.
+## Overview
 
-**Features**
-Character List: Shows each character’s name, actor, species, and a house color indicator:
+The Wizards of Hogwarts app displays characters from the Harry Potter universe using the HP API. Key features include inline search, offline support, and detailed character views.
 
-Gryffindor: #740001
-Slytherin: #1a472a
-Ravenclaw: #0c1a40
-Hufflepuff: #eeb939
-Search: Filter characters by name or actor.
+## Features
 
-Detail View: Includes character’s picture, formatted date of birth, and alive/deceased status.
+- **Character List**: Shows:
+  - Character’s name
+  - Actor’s name
+  - Species
+  - House color indicator:
+    - Gryffindor: `#740001`
+    - Slytherin: `#1a472a`
+    - Ravenclaw: `#0c1a40`
+    - Hufflepuff: `#eeb939`
 
-Offline Mode: Cached data using Room database.
+- **Search**: Inline search functionality to filter characters by name or actor.
 
-**Bonus**
-Light/Dark Mode: Switch themes with user preference saved via data preferences.
+- **Detail View**: Displays:
+  - Character’s picture
+  - Formatted date of birth (`dd MMM yyyy`)
+  - Alive or deceased status
 
-Accessibility: UI adapts to text size changes.
+- **Offline Mode**: Utilizes Room database for caching data.
 
-**Technologies**
-MVVM Clean Architecture: For separation of concerns.
-Jetpack Compose: For modern, declarative UI.
-Room Database: For offline data storage.
-Data Preferences: For theme persistence.
-Coil: For efficient image loading and caching.
-Flow: For reactive and asynchronous data handling.
-Dagger Hilt: For dependency injection and managing dependencies.
-Version Catalog: Implemented for managing dependencies.
-API Key Management: API keys are securely maintained in BaseConfig file for both develop and release variants.
+## Bonus Features
 
+- **Light/Dark Mode**: Switch between themes with preferences saved using data preferences.
 
-**Setup**
-Clone the Repository:
+- **Accessibility**: UI adapts to text size changes for improved readability.
 
-bash
-Copy code
-git clone https://github.com/anchu-jossy/wizards-of-hogwarts-app.git
-Navigate and Run:
+## Technologies
 
-bash
-Copy code
-cd wizards-of-hogwarts-app
-Open in Android Studio, sync Gradle files, and run the app.
+- **MVVM Clean Architecture**: Ensures separation of concerns and maintainability.
+- **Jetpack Compose**: Provides a modern, declarative UI toolkit.
+- **Room Database**: Manages offline data storage.
+- **Data Preferences**: Saves user-selected themes.
+- **Coil**: Handles efficient image loading and caching.
+- **Flow**: Manages reactive and asynchronous data streams.
+- **Dagger Hilt**: Facilitates dependency injection and management.
+- **Version Catalog**: Centralizes dependency management.
+- **API Key Management**: Secures API keys in the `BaseConfig` file for both `develop` and `release` variants.
 
-Branch Information:
+## Setup
 
-Please refer to the develop branch for the latest updates and code
+1. **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/anchu-jossy/wizards-of-hogwarts-app.git
+    ```
+
+2. **Navigate to the Project Directory:**
+
+    ```bash
+    cd wizards-of-hogwarts-app
+    ```
+
+3. **Open in Android Studio:**
+   - Sync Gradle files.
+   - Build and run the app.
+
+4. **Branch Information:**
+   - For the latest updates, refer to the `develop` branch.
+
+## Contact
+
+For any questions or further information, please feel free to reach out.
