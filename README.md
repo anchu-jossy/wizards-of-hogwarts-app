@@ -1,8 +1,8 @@
-Wizards of Hogwarts App
+****Wizards of Hogwarts App**
 Overview
 The Wizards of Hogwarts app displays Harry Potter characters from HP API with features including inline search, offline support, and a detailed character view.
 
-Features
+**Features**
 Character List: Shows each character’s name, actor, species, and a house color indicator:
 
 Gryffindor: #740001
@@ -15,12 +15,12 @@ Detail View: Includes character’s picture, formatted date of birth, and alive/
 
 Offline Mode: Cached data using Room database.
 
-Bonus
+**Bonus**
 Light/Dark Mode: Switch themes with user preference saved via data preferences.
 
 Accessibility: UI adapts to text size changes.
 
-Technologies
+**Technologies**
 MVVM Clean Architecture: For separation of concerns.
 Jetpack Compose: For modern, declarative UI.
 Room Database: For offline data storage.
@@ -30,7 +30,9 @@ Flow: For reactive and asynchronous data handling.
 Dagger Hilt: For dependency injection and managing dependencies.
 Version Catalog: Implemented for managing dependencies.
 API Key Management: API keys are securely maintained in BaseConfig file for both develop and release variants.
-Setup
+
+
+**Setup**
 Clone the Repository:
 
 bash
