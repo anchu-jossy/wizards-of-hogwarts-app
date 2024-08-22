@@ -37,6 +37,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -59,16 +60,7 @@ android {
         )
         )
     }
-//    packaging {
-//
-//        resources {
-//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-//            excludes += "/META-INF/gradle/incremental.annotation.processors"
-//            excludes += "/META-INF/AL2.0"
-//            excludes += "META-INF/LGPL2.1"
-//            excludes += "META-INF/NOTICE"
-//        }
-//    }
+
 
     dependencies {
         // Core AndroidX libraries
@@ -89,26 +81,31 @@ android {
         implementation(libs.multidex)
         implementation(libs.androidx.ui.test.junit4.android)
 
-        // Debug and testing dependencies
-        debugImplementation(libs.hilt.android.testing)
-        debugImplementation(libs.kotlinx.coroutines.test)
-        kaptTest(libs.hilt.android.compiler)
-
-        androidTestImplementation(libs.mockk.android) // For Android Instrumentation tests
-        testImplementation(libs.mockk) // For Unit tests
-        testImplementation(libs.mockito.kotlin) // Mockito for unit tests
-        androidTestImplementation(libs.androidx.ui.test.junit4)
-        debugImplementation(libs.androidx.ui.tooling)
-        debugImplementation(libs.androidx.ui.test.manifest)
-        testImplementation(libs.junit)
-        implementation(libs.navigation.compose)
-        testImplementation(libs.hilt.android.compiler)
-        kaptAndroidTest(libs.hilt.android.compiler)
-
         // Dependency injection with Hilt
         implementation(libs.hilt.android)
         kapt(libs.hilt.android.compiler)
         implementation(libs.hilt.navigation.compose)
+
+
+        // Unit Testing dependencies
+        testImplementation(libs.mockk) // MockK for mocking in Unit tests
+        testImplementation(libs.mockito.kotlin) // Mockito for mocking in Unit tests
+        testImplementation(libs.junit) // JUnit testing framework for unit tests
+        testImplementation(libs.hilt.android.compiler) // Hilt compiler for unit tests, required for generating Dagger components
+
+        // Instrumentation Testing dependencies
+        androidTestImplementation(libs.mockk.android) // MockK for mocking in Android Instrumentation tests
+        androidTestImplementation(libs.androidx.ui.test.junit4) // JUnit4 for UI tests with Jetpack Compose
+        debugImplementation(libs.androidx.ui.tooling) // Tooling support for Compose, including the ability to preview Compose UI elements in Android Studio
+        debugImplementation(libs.androidx.ui.test.manifest) // Allows testing UI elements in Compose within Android Instrumentation tests
+        kaptAndroidTest(libs.hilt.android.compiler) // Hilt compiler for Android Instrumentation tests, required for generating Dagger components
+        androidTestImplementation ("androidx.test.ext:junit:1.1.5") // JUnit extension for AndroidX
+        androidTestImplementation ("androidx.test:runner:1.5.2") // AndroidJUnitRunner
+        androidTestImplementation ("androidx.test:rules:1.5.2") // Android test rules
+
+        // Other dependencies
+        implementation(libs.navigation.compose) // Jetpack Compose Navigation component
+
 
 
 
