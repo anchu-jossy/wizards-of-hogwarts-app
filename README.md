@@ -1,4 +1,5 @@
 ****Wizards of Hogwarts App**
+
 Overview
 The Wizards of Hogwarts app displays Harry Potter characters from HP API with features including inline search, offline support, and a detailed character view.
 
