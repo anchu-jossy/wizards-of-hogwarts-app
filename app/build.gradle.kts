@@ -15,13 +15,12 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.wizardsofhogwarts.HiltTestRunner"
     }
 
     buildTypes {
         debug {
             buildConfigField("String", "BASE_URL", "\"https://hp-api.onrender.com/\"")
-
         }
         release {
             buildConfigField("String", "BASE_URL", "\"https://hp-api.onrender.com/\"")
@@ -30,7 +29,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -53,74 +51,95 @@ android {
     }
 
     packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
+        resources.excludes.addAll(
+            listOf(
+                "META-INF/LICENSE.md",
+                "META-INF/LICENSE-notice.md",
+
+        )
+        )
+    }
+//    packaging {
+//
+//        resources {
+//            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+//            excludes += "/META-INF/gradle/incremental.annotation.processors"
+//            excludes += "/META-INF/AL2.0"
+//            excludes += "META-INF/LGPL2.1"
+//            excludes += "META-INF/NOTICE"
+//        }
+//    }
+
+    dependencies {
+        // Core AndroidX libraries
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.activity.compose)
+
+        // Jetpack Compose libraries
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.ui)
+        implementation(libs.androidx.ui.graphics)
+        implementation(libs.androidx.ui.tooling.preview)
+        implementation(libs.androidx.material3)
+
+        // Core and utility libraries
+        implementation(libs.core)
+        implementation(libs.gson)
+        implementation(libs.multidex)
+        implementation(libs.androidx.ui.test.junit4.android)
+
+        // Debug and testing dependencies
+        debugImplementation(libs.hilt.android.testing)
+        debugImplementation(libs.kotlinx.coroutines.test)
+        kaptTest(libs.hilt.android.compiler)
+
+        androidTestImplementation(libs.mockk.android) // For Android Instrumentation tests
+        testImplementation(libs.mockk) // For Unit tests
+        testImplementation(libs.mockito.kotlin) // Mockito for unit tests
+        androidTestImplementation(libs.androidx.ui.test.junit4)
+        debugImplementation(libs.androidx.ui.tooling)
+        debugImplementation(libs.androidx.ui.test.manifest)
+        testImplementation(libs.junit)
+        implementation(libs.navigation.compose)
+        testImplementation(libs.hilt.android.compiler)
+        kaptAndroidTest(libs.hilt.android.compiler)
+
+        // Dependency injection with Hilt
+        implementation(libs.hilt.android)
+        kapt(libs.hilt.android.compiler)
+        implementation(libs.hilt.navigation.compose)
+
+
+
+        // Networking with Retrofit
+        implementation(libs.retrofit)
+        implementation(libs.retrofit.converter)
+        implementation(libs.logging.interceptor)
+
+        // Paging with Room support
+        implementation(libs.paging)
+        implementation(libs.paging.compose)
+
+        // Image loading with Coil
+        implementation(libs.coil.compose)
+
+        // Room database
+        implementation(libs.room.runtime)
+        implementation(libs.room.ktx)
+        kapt(libs.room.compiler)
+        implementation(libs.room.paging)
+
+        // Datastore for preferences
+        implementation(libs.androidx.datastore.preferences)
+        implementation(kotlin("test"))
+    }
+
+    // Allow references to generated code
+    kapt {
+        correctErrorTypes = true
     }
 }
-
 dependencies {
-    // Core AndroidX libraries
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-
-    // Jetpack Compose libraries
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-
-    // Core and utility libraries
-    implementation(libs.core)
-    implementation(libs.gson)
-    implementation(libs.multidex)
-
-    // Testing libraries
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    androidTestImplementation(libs.androidx.arch.core.testing)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
-
-    // Debug libraries
-    debugImplementation(libs.androidx.ui.tooling)
-    debugImplementation(libs.androidx.ui.test.manifest)
-
-    // Dependency injection with Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-    implementation(libs.hilt.navigation.compose)
-
-    // Navigation library for Compose
-    implementation(libs.navigation.compose)
-
-    // Networking with Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.converter)
-    implementation(libs.logging.interceptor)
-
-    // Paging with Room support
-    implementation(libs.paging)
-    implementation(libs.paging.compose)
-
-    // Image loading with Coil
-    implementation(libs.coil.compose)
-
-    // Room database
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
-    kapt(libs.room.compiler)
-    implementation(libs.room.paging)
-
-    // Datastore for preferences
-    implementation(libs.androidx.datastore.preferences)
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
+    implementation(libs.androidx.runner)
 }

@@ -6,70 +6,58 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.wizardsofhogwarts.R
+import com.example.wizardsofhogwarts.domain.model.Character
 import com.example.wizardsofhogwarts.presentation.component.CircularIndeterminateProgressBar
 import com.example.wizardsofhogwarts.presentation.component.NoDataPlaceHolder
 import com.example.wizardsofhogwarts.presentation.component.ErrorView
-import com.example.wizardsofhogwarts.presentation.navigation.Screen
-import com.example.wizardsofhogwarts.presentation.shared.CharacterListViewModel
 
 /**
  * Composable function to display the character list screen.
  *
- * @param navController Navigation controller to handle navigation actions.
- * @param viewModel ViewModel providing character data and search functionality.
+ * @param onItemClick Callback for when an item is clicked.
+ * @param state State of the character list screen.
+ * @param characterList List of characters to display.
+ * @param searchText Current text in the search bar.
+ * @param onSearchTextChange Callback to handle search text changes.
  */
 @Composable
 fun CharacterListScreen(
-    navController: NavController,
-    viewModel: CharacterListViewModel
+    onItemClick: (Character) -> Unit,
+    state: CharacterListState,
+    characterList: List<Character>,
+    searchText: String,
+    onSearchTextChange: (String) -> Unit
 ) {
-    // Collect state, character list, and search text from the ViewModel
-    val state by viewModel.state.collectAsState()
-    val characterList by viewModel.characterList.collectAsState()
-    val searchText by viewModel.searchText.collectAsState()
-
-    // Main container for the screen
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp) // Padding around the content
+            .padding(16.dp)
     ) {
-        // Search bar for filtering the character list
         SearchBar(
             searchText = searchText,
-            onSearchTextChange = viewModel::onSearchTextChange
+            onSearchTextChange = onSearchTextChange
         )
 
-        // Show a loading spinner while data is loading
-        if (state.isLoading) {
-            CircularIndeterminateProgressBar(isDisplayed = true)
-        }
-        // Show an error message if an error occurs
-        else if (state.error.isNotBlank()) {
-            ErrorView(text = state.error, color = MaterialTheme.colorScheme.error)
-        }
-        // Display character list or a placeholder if no data is available
-        else {
-            if (characterList.isEmpty()) {
-                NoDataPlaceHolder()
-            } else {
-                LazyColumn(
-                    contentPadding = PaddingValues(16.dp),
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    items(characterList) { character ->
-                        CharacterListItem(character = character, onItemClick = { clickedItem ->
-                            viewModel.addCharacter(clickedItem)
-                            navController.navigate(Screen.CharacterDetailScreen.route)
-                        })
-                    }
+        when {
+            state.isLoading -> CircularIndeterminateProgressBar(isDisplayed = true)
+            state.error.isNotBlank() -> ErrorView(
+                text = state.error,
+                color = MaterialTheme.colorScheme.error
+            )
+            characterList.isEmpty() -> NoDataPlaceHolder()
+            else -> LazyColumn(
+                contentPadding = PaddingValues(16.dp),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(characterList) { character ->
+                    CharacterListItem(character = character, onItemClick = onItemClick)
                 }
             }
         }
@@ -91,7 +79,7 @@ fun SearchBar(
         singleLine = true,
         value = searchText,
         onValueChange = onSearchTextChange,
-        modifier = Modifier.fillMaxWidth(), // Full width of its parent
+        modifier = Modifier.fillMaxWidth().testTag("search_bar"),
         placeholder = {
             Text(
                 text = stringResource(id = R.string.search),
@@ -101,7 +89,6 @@ fun SearchBar(
         trailingIcon = {
             if (searchText.isNotEmpty()) {
                 IconButton(onClick = { onSearchTextChange("") }) {
-
                     Icon(
                         imageVector = Icons.Default.Close,
                         tint = MaterialTheme.colorScheme.onSurface,

@@ -36,4 +36,5 @@ sealed class Resource<T>(
      * @param data Optional data that may be returned with the error.
      */
     class Error<T>(message: String, data: T? = null) : Resource<T>(data, message)
+
 }

@@ -52,7 +52,7 @@ fun CharacterListItem(character: Character, onItemClick: (Character) -> Unit) {
                 TextWithBasicDetails(
                     character = character,
                     isAdditonalInfoNeeded = false, // No additional information needed
-                    modifier = Modifier.padding(bottom = 8.dp) // Padding below the details
+                    modifier = Modifier // Padding below the details
                 )
             }
         }

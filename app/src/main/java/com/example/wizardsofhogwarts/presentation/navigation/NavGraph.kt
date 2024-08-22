@@ -1,40 +1,47 @@
 package com.example.wizardsofhogwarts.presentation.navigation
 
+
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.wizardsofhogwarts.domain.model.Character
 import com.example.wizardsofhogwarts.presentation.character_detail.CharacterDetailScreen
 import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListScreen
-import com.example.wizardsofhogwarts.presentation.shared.CharacterListViewModel
+import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListState
+import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListViewModel
 
-/**
- * Sets up the navigation graph for the application.
- *
- * @param navController The [NavHostController] used for managing navigation.
- * @param viewModel The [CharacterListViewModel] shared between screens for managing state.
- */
+
 @Composable
 fun Navigation(
     navController: NavHostController,
-    viewModel: CharacterListViewModel
+    viewModel: CharacterListViewModel,
+    onItemClick: (Character) -> Unit,
+    onSearchTextChange: (String) -> Unit,
+    state: CharacterListState,
+    characterList: List<Character>,
+    searchText: String
 ) {
-    // Define the navigation graph
     NavHost(
         navController = navController,
-        startDestination = Screen.CharactersListScreen.route // The initial screen to display
+        startDestination = Screen.CharactersListScreen.route // Ensure this route is defined in Screen
     ) {
-        // Define the composable for the character list screen
         composable(Screen.CharactersListScreen.route) {
+
             CharacterListScreen(
-                navController = navController,
-                viewModel = viewModel
+                onItemClick = onItemClick,
+                state = state,
+                characterList = characterList,
+                searchText = searchText,
+                onSearchTextChange = onSearchTextChange
             )
         }
-
-        // Define the composable for the character detail screen
         composable(Screen.CharacterDetailScreen.route) {
-            CharacterDetailScreen(viewModel = viewModel)
+            val character by viewModel.selectedCharacter.collectAsState()
+            CharacterDetailScreen(character = character)
         }
     }
 }
+

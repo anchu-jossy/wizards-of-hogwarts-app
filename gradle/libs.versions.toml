@@ -5,15 +5,20 @@ datastorePreferences = "1.1.1"
 kotlin = "1.9.24"
 coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.1.5"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.06.00"
 hilt = "2.48"
 hiltNavCompose = "1.2.0"
+
+mockitoAndroid = "5.4.0"
+mockitoInline = "3.11.2"
+mockitoKotlin = "4.1.0"
+mockkAndroid = "1.13.7"
+mockk = "1.13.7"
 nav_version = "2.7.7"
-constraintCompose = "1.0.1"
+
 retrofit = "2.11.0"
 logging_interceptor = "4.12.0"
 gson = "2.10.1"
@@ -21,34 +26,44 @@ paging_version = "3.3.2"
 multidex = "2.0.1"
 room_version = "2.6.1"
 hiltAndroidGradlePlugin = "2.48"
-coroutines = "1.8.1"
-coreTesting = "2.2.0"
+
 core = "1.44.0"
+
+uiTestJunit4 = "1.6.8"
+uiTestJunit4Android = "1.6.8"
+coreTesting = "2.2.0"
+espressoCore = "3.5.0"
+coroutines = "1.7.3"
+runner = "1.6.2"
+uiTestManifest = "1.6.8"
+uiTooling = "1.6.8"
 
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "uiTestJunit4" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
+androidx-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "uiTestManifest" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 hilt-android = {group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavCompose"}
-hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockkAndroid" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref="nav_version"}
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-converter = { group = "com.squareup.retrofit2",name = "converter-gson", version.ref = "retrofit"}
@@ -61,9 +76,15 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version"}
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version"}
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room_version"}
-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 core = { group = "com.google.ar", name = "core", version.ref = "core" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "runner" }
+
 
 
 [plugins]

@@ -1,4 +1,4 @@
-package com.example.wizardsofhogwarts.presentation.shared
+package com.example.wizardsofhogwarts.presentation.characterlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,7 +7,6 @@ import com.example.wizardsofhogwarts.domain.usecases.GetCharacterListUseCase
 import com.example.wizardsofhogwarts.domain.usecases.GetThemeUseCase
 import com.example.wizardsofhogwarts.domain.usecases.SetThemeUseCase
 import com.example.wizardsofhogwarts.domain.util.Resource
-import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -64,7 +63,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     // Fetches the character list from the use case and updates the state
-    private fun loadCharacterList() {
+    fun loadCharacterList() {
         viewModelScope.launch {
             getCharacterListUseCase.execute().collect { result ->
                 when (result) {
@@ -93,7 +92,7 @@ class CharacterListViewModel @Inject constructor(
     }
 
     // Fetches the current theme setting from the use case and updates the state
-    private fun loadTheme() {
+    fun loadTheme() {
         viewModelScope.launch {
             getThemeUseCase().collect { darkMode ->
                 _theme.value = darkMode

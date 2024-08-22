@@ -8,18 +8,17 @@ import com.example.wizardsofhogwarts.domain.model.Character
 import com.example.wizardsofhogwarts.domain.repository.CharacterRepository
 import com.example.wizardsofhogwarts.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
 /**
- * Implementation of [CharacterRepository] that interacts with the local database and remote API.
+ * Implementation of [CharacterRepository] for managing character data from local and remote sources.
  *
- * @param api The [ApiService] instance used for fetching character data from the remote API.
- * @param characterDao The [CharacterDao] instance used for accessing and modifying character data in the local database.
+ * @param api The [ApiService] used for remote API interactions.
+ * @param characterDao The [CharacterDao] used for local database operations.
  */
 class CharacterRepositoryImpl @Inject constructor(
     private val api: ApiService,
@@ -27,52 +26,46 @@ class CharacterRepositoryImpl @Inject constructor(
 ) : CharacterRepository {
 
     /**
-     * Fetches a list of characters, either from the local database or remote API.
+     * Retrieves a list of characters. It first tries to fetch data from the local database.
+     * If no data is found, it fetches from the remote API, saves it to the local database, and then returns it.
      *
-     * This function first tries to fetch characters from the local database. If the database is empty,
-     * it fetches the data from the remote API, saves it to the local database, and returns it.
-     *
-     * @return A [Flow] emitting [Resource] that contains either a list of [Character] or an error.
+     * @return A [Flow] emitting [Resource] with the list of [Character] or an error message.
      */
     override fun getCharacterList(): Flow<Resource<List<Character>>> = flow {
         emit(Resource.Loading())
         try {
-            // Fetch characters from local database
-            val offlineCharacterList = characterDao.getAllCharacters().first()
+            // Attempt to get data from the local database
+            val offlineCharacterList = characterDao.getAllCharacters().firstOrNull()
 
-            if (offlineCharacterList.isNotEmpty()) {
-                // If local data exists, emit it as success
+            if (!offlineCharacterList.isNullOrEmpty()) {
                 emit(Resource.Success(offlineCharacterList.map { it.toDomainModel() }))
             } else {
-                // Fetch from remote API and save to local database
-                val characterList = fetchAndSaveCharacters()
-                emit(Resource.Success(characterList))
+                val characters = fetchAndSaveCharacters()
+                emit(Resource.Success(characters))
             }
         } catch (e: HttpException) {
-            // Handle HTTP errors
             emit(Resource.Error("Oops, something went wrong! Please try again later."))
         } catch (e: IOException) {
-            // Handle IO errors
             emit(Resource.Error("Couldn't reach server, check your internet connection."))
         }
     }
 
     /**
-     * Fetches characters from the remote API and saves them to the local database.
+     * Fetches characters from the remote API, saves them to the local database, and returns the list.
      *
      * @return A list of [Character] domain models.
      */
     private suspend fun fetchAndSaveCharacters(): List<Character> {
-        // Fetch character data from the remote API
         val response = api.getCharacterList()
 
-        // Map the API response to domain models and local database entities
+        // Convert API response to domain models and local entities
         val characterList = response.map { it.toDomainModel() }
         val characterEntityList = response.map { it.toCharacterEntity() }
 
-        // Save characters to the local database
+        // Save the characters to the local database
         characterDao.insertAllCharacters(characterEntityList)
 
         return characterList
     }
+
 }

@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.wizardsofhogwarts.R
@@ -22,7 +23,7 @@ import com.example.wizardsofhogwarts.R
 fun NoDataPlaceHolder() {
     // Container for the no data placeholder message
     Column(
-        modifier = Modifier.fillMaxSize(), // Fills the maximum size of the parent container
+        modifier = Modifier.fillMaxSize().testTag("no_data_placeholder"), // Makes the column fill the entire screen, // Fills the maximum size of the parent container
         verticalArrangement = Arrangement.Center, // Centers content vertically
         horizontalAlignment = Alignment.CenterHorizontally // Centers content horizontally
     ) {
