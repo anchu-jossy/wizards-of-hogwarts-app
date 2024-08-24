@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.wizardsofhogwarts.domain.model.Character
-import com.example.wizardsofhogwarts.presentation.component.TextWithBasicDetails
+import com.example.wizardsofhogwarts.presentation.component.CharacterDetails
 import com.example.wizardsofhogwarts.presentation.utils.getHouseColor
 
 /**
@@ -49,7 +49,7 @@ fun CharacterListItem(character: Character, onItemClick: (Character) -> Unit) {
                     .padding(16.dp) // Padding around the content within the card
             ) {
                 // Character details
-                TextWithBasicDetails(
+                CharacterDetails(
                     character = character,
                     isAdditonalInfoNeeded = false, // No additional information needed
                     modifier = Modifier // Padding below the details

@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.wizardsofhogwarts.R
 import com.example.wizardsofhogwarts.presentation.characterlist.CharacterListViewModel
 import com.example.wizardsofhogwarts.presentation.component.AppBarTitleAndDrawer
+import com.example.wizardsofhogwarts.presentation.component.ModelNavDrawer
 import com.example.wizardsofhogwarts.presentation.navigation.Navigation
 import com.example.wizardsofhogwarts.presentation.navigation.Screen
 import com.example.wizardsofhogwarts.presentation.theme.ThemeSwitcherTheme
@@ -43,19 +44,17 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    ModalNavigationDrawer(
-                        drawerContent = {
-                            SetDrawerContent(darkTheme = darkTheme, viewModel = viewModel)
-                        },
-                        drawerState = drawerState
-                    ) {
+                    ModelNavDrawer(drawerContent = {
+                        SetDrawerContent(darkTheme = darkTheme, viewModel = viewModel)
+                    }, drawerState = drawerState, mainContent = {
                         MainScreenContent(
                             scope = scope,
                             drawerState = drawerState,
                             navController = navController,
                             viewModel = viewModel
                         )
-                    }
+                    })
+
                 }
             }
         }

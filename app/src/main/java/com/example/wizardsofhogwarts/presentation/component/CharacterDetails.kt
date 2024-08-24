@@ -1,12 +1,10 @@
 package com.example.wizardsofhogwarts.presentation.component
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.wizardsofhogwarts.R
 import com.example.wizardsofhogwarts.domain.model.Character
 import com.example.wizardsofhogwarts.presentation.utils.getHouseColor
@@ -20,7 +18,7 @@ import com.example.wizardsofhogwarts.presentation.utils.getHouseColor
  * @param modifier [Modifier] to apply styling or layout adjustments to the Text elements.
  */
 @Composable
-fun TextWithBasicDetails(
+fun CharacterDetails(
     character: Character,
     isAdditonalInfoNeeded: Boolean,
     modifier: Modifier=Modifier

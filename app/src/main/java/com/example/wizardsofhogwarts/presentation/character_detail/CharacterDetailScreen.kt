@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.wizardsofhogwarts.R
 import com.example.wizardsofhogwarts.domain.model.Character
-import com.example.wizardsofhogwarts.presentation.component.TextWithBasicDetails
+import com.example.wizardsofhogwarts.presentation.component.CharacterDetails
 import com.example.wizardsofhogwarts.presentation.utils.getHouseColor
 
 /**
@@ -39,7 +39,11 @@ fun CharacterDetailScreen(character: Character) {
     ) {
         CharacterImage(character = character)
         Spacer(modifier = Modifier.height(16.dp))
-        CharacterDetails(character = character)
+        CharacterDetails(
+            character = character,
+            isAdditonalInfoNeeded = true
+        )
+
     }
 }
 
@@ -74,21 +78,4 @@ fun CharacterImage(character: Character) {
     }
 }
 
-/**
- * Composable function to display the character's details.
- *
- * @param character The character whose details are to be displayed.
- */
-@Composable
-fun CharacterDetails(character: Character) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TextWithBasicDetails(
-            character = character,
-            isAdditonalInfoNeeded = true
-        )
-    }
-}
+
