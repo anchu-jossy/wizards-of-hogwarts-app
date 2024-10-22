@@ -11,14 +11,9 @@ data class CharacterDTO(
     val gender: String,
     val hairColour: String,
     val hogwartsStaff: Boolean,
-    val hogwartsStudent: Boolean,
     val house: String,
     val id: String,
     val image: String,
     val name: String,
-    val patronus: String,
     val species: String,
-    val wand: WandDTO,
-    val wizard: Boolean,
-    val yearOfBirth: Int
 )
